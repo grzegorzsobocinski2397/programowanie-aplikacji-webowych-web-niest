@@ -1,0 +1,25 @@
+{
+  "name": "programowanie-aplikacji-webowych-web-niest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack --mode development --watch",
+    "build": "webpack --mode production",
+    "test": "test"
+  },
+  "author": "Grzegorz Sobocinski",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@types/node": "^12.12.14",
+    "babel": "^6.23.0",
+    "babel-loader": "^8.0.6",
+    "webpack": "^4.41.2"
+  },
+  "devDependencies": {
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.2",
+    "webpack-cli": "^3.3.10"
+  }
+}

@@ -1,115 +1,89 @@
+import { Input } from "./input";
 
+let inputs: Input[] = [];
 
-document.addEventListener('DOMContentLoaded', function () {
-    const specifier = document.querySelector('#specifier')
-    specifier.addEventListener('change', addInputElements.bind(specifier));
-})
-
-/**
- * Create new input elements based on user's input.
- */
-function addInputElements(): void {
-    const numberOfInputs = this.value;
-    const container = document.querySelector('.inputs') as HTMLDivElement;
-    removePreviousChildren(container);
-
-    for (let i = 0; i < numberOfInputs; i++) {
-        const input = createInputElement();
-        container.appendChild(input);
-    }
-}
-
-/**
- * Create new input element, add a class and bind the event onChange.
- */
-function createInputElement(): HTMLInputElement {
-    const input = document.createElement('input');
-    input.classList.add('input')
-    input.placeholder = "Please type in your number..."
-    input.addEventListener('change', onInputChange.bind(input));
-    return input;
-}
-
-/**
- * Clear the children list of an DIV element.
- * @param container DIV container that has all the input elements.
- */
-function removePreviousChildren(container: HTMLDivElement): void {
-    while (container.hasChildNodes()) {
-        container.removeChild(container.firstChild);
-    }
-}
+document.addEventListener("DOMContentLoaded", function() {
+  const specifier = document.querySelector("#specifier");
+  specifier.addEventListener("change", createInputs.bind(specifier));
+});
 
 /**
  * Calculate all the number outputs on a input change.
  */
-function onInputChange(): void {
+export function onInputChange(): void {
     const values = getCurrentValues();
-    const areInputsCorrect = validateValues(values);
+    const areInputsCorrect = inputs.every(input => input.isValid);
+  
+    toggleErrors();
     
     if (areInputsCorrect) {
-        setNumberOutputs(values);
+      setNumberOutputs(values);
     }
-    else {
-        setErrors(values);
-    }
+  }
+
+/**
+ * Create new input elements based on user's input.
+ */
+function createInputs(): void {
+  const numberOfInputs = this.value;
+  removePreviousInputs();
+
+  for (let i = 0; i < numberOfInputs; i++) {
+    const id = `input-${i}`
+    const input = new Input(id);
+    inputs.push(input);
+  }
+}
+
+/**
+ * Clear the children list of an DIV element.
+ */
+function removePreviousInputs(): void {
+  inputs.forEach(input => input.onDestroy());
+  inputs = [];
 }
 
 /**
  * Update the number outputs with calculated data.
- * @param inputValues Values of the input elements.
- */
-function setNumberOutputs(inputValues: string[]): void {
-    const values = inputValues.filter(value => value != "").map(value => Number(value));
-    const { sumElement, averageElement, maxElement, minElement } = getNumberOutputs();
-    const sum = values.reduce((a, b) => a + b, 0);
-
-    sumElement.innerHTML = sum.toString();
-    averageElement.innerHTML = (sum / values.length).toFixed(2);
-    maxElement.innerHTML = `${Math.max(...values)}`;
-    minElement.innerHTML = `${Math.min(...values)}`;
-}
-
-/**
- * Set error state on the input elements, which are invalid.
  * @param values Values of the input elements.
  */
-function setErrors(values: string[]): void {
-    const inputs = document.querySelectorAll('.input');
-    values.forEach((value, index) => {
-        if (Number.isNaN(+value)) {
-            inputs[index].classList.add('input--invalid');
-        }
-        else {
-            inputs[index].classList.remove('input--invalid');
-        }
-    })
+function setNumberOutputs(values: number[]): void {
+  const {
+    sumElement,
+    averageElement,
+    maxElement,
+    minElement
+  } = getNumberOutputs();
+
+  const sum = values.reduce((a, b) => a + b, 0);
+
+  sumElement.innerHTML = sum.toString();
+  averageElement.innerHTML = (sum / values.length).toFixed(2);
+  maxElement.innerHTML = `${Math.max(...values)}`;
+  minElement.innerHTML = `${Math.min(...values)}`;
 }
 
 /**
  * Returns all the available number outputs as one object.
  */
 function getNumberOutputs(): any {
-    const averageElement = document.querySelector('#average');
-    const sumElement = document.querySelector('#sum');
-    const maxElement = document.querySelector('#max');
-    const minElement = document.querySelector('#min');
-    return { sumElement, averageElement, maxElement, minElement }
+  const averageElement = document.querySelector("#average");
+  const sumElement = document.querySelector("#sum");
+  const maxElement = document.querySelector("#max");
+  const minElement = document.querySelector("#min");
+  return { sumElement, averageElement, maxElement, minElement };
 }
 
 /**
  * Returns values from all the available inputs.
  */
-function getCurrentValues(): string[] {
-    const inputs = document.querySelectorAll('.input');   
-    inputs.forEach(input => input.classList.remove("input--invalid")); 
-    return Array.from(inputs).map(input => (input as HTMLInputElement).value);
+function getCurrentValues(): number[] {
+  return inputs.map(input => input.number);
 }
 
 /**
- * Check all the input values if they are correct numbers.
- * @param inputValues Values of the input elements.
+ * Set error state on the inputs, which are invalid.
  */
-function validateValues(inputValues: string[]): boolean {
-   return inputValues.every(value => !Number.isNaN(+value));
+function toggleErrors(): void {
+  inputs.forEach(input => input.toggleErrorState());
 }

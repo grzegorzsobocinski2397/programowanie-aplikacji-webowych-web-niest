@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack --mode development --watch",
+    "dev": "webpack --mode development --watch --port 4200",
     "build": "webpack --mode production",
     "test": "test"
   },

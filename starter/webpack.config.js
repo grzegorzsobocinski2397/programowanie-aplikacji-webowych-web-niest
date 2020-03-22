@@ -6,6 +6,9 @@ module.exports = {
         filename: 'index.js',
         path: path.resolve(__dirname, 'js')
     },
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js']
+      },
     module: {
         rules: [
             {

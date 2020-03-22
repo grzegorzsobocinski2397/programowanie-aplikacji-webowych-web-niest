@@ -4,8 +4,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Starter</title>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   </head>
   <body>
-    <script src="index.js"></script>
+    <div class="container">
+      <div class="inputs-container">
+        <input id="specifier">
+        
+      </div>
+      <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+      <div class="elements-container">
+        <div class="inputs">
+
+        </div>
+        <div class="numbers-container">
+          <div class="numbers-block">
+            <span class="numbers-block__description">Average of your values is: </span><span id="average">...</span>
+          </div>
+          <div class="numbers-block">
+           <span class="numbers-block__description">Sum of your values is: </span><span id="sum">...</span>
+          </div>
+          <div class="numbers-block">
+            <span class="numbers-block__description">Maximum of your values is: </span><span id="max">...</span>
+           </div>
+           <div class="numbers-block">
+            <span class="numbers-block__description"> Minimum of your values is: </span><span id="min">...</span>
+           </div>
+      </div>
+      
+      </div>
+    </div>
+    <script src="../js/index.js"></script>
   </body>
 </html>

@@ -1,0 +1,47 @@
+
+* {
+    font-family: 'Montserrat';
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-color: #8EC5FC;
+}
+
+.container {
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#specifier {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.inputs,
+.numbers-container  {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    align-items: center;
+}
+
+.input {
+    width: 40%
+}
+
+.numbers-block,
+.input {
+    display: flex;
+    margin: 10px;
+    font-size: 1.5rem;
+}
+
+.numbers-block__description {
+    display: block;
+    width: 210px;
+}

@@ -1,7 +1,8 @@
+
+
 document.addEventListener('DOMContentLoaded', function () {
     const specifier = document.querySelector('#specifier')
     specifier.addEventListener('change', addInputElements.bind(specifier));
-    document.querySelector('.lds-dual-ring').classList.add('lds-dual-ring--hidden');
 })
 
 /**
@@ -51,18 +52,6 @@ function onInputChange(): void {
     }
     else {
         setErrors(values);
-    }
-}
-
-/**
- * 
- * @param areValuesCorrect 
- */
-function toggleLoader(areValuesCorrect: boolean): void {
-    if (areValuesCorrect) {
-        document.querySelector('.lds-dual-ring').classList.remove('lds-dual-ring--hidden');
-    } else {
-        document.querySelector('.lds-dual-ring').classList.add('lds-dual-ring--hidden');
     }
 }
 

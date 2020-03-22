@@ -22,6 +22,10 @@ body {
     margin-bottom: 20px;
 }
 
+.elements-container {
+    display: flex;
+}
+
 .inputs,
 .numbers-container  {
     display: flex;
@@ -30,8 +34,16 @@ body {
     align-items: center;
 }
 
+.numbers-container {
+    justify-self: flex-end;
+}
+
 .input {
     width: 40%
+}
+
+.input--invalid {
+    border: 1px solid red;
 }
 
 .numbers-block,
